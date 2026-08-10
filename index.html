@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaStore | Premium Modern Electronics & Gear</title>
+  <meta name="description" content="Discover cutting-edge audio, smart wearables, monitors, and lifestyle accessories at AlphaStore with fast shipping and secure checkout.">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Immediate Inline Modal Controller -->
+  <script>
+    function openAuthModal() {
+      var backdrop = document.getElementById('auth-modal-backdrop');
+      if (backdrop) {
+        backdrop.classList.add('active');
+        backdrop.style.opacity = '1';
+        backdrop.style.visibility = 'visible';
+        backdrop.style.pointerEvents = 'auto';
+        backdrop.style.display = 'flex';
+      }
+    }
+    function closeAuthModal() {
+      var backdrop = document.getElementById('auth-modal-backdrop');
+      if (backdrop) {
+        backdrop.classList.remove('active');
+        backdrop.style.opacity = '0';
+        backdrop.style.visibility = 'hidden';
+        backdrop.style.pointerEvents = 'none';
+        backdrop.style.display = 'none';
+      }
+    }
+    function openCartDrawer() {
+      var drawer = document.getElementById('cart-drawer');
+      var backdrop = document.getElementById('cart-backdrop');
+      if (drawer) drawer.classList.add('active');
+      if (backdrop) {
+        backdrop.classList.add('active');
+        backdrop.style.opacity = '1';
+        backdrop.style.visibility = 'visible';
+        backdrop.style.pointerEvents = 'auto';
+      }
+    }
+    function closeCartDrawer() {
+      var drawer = document.getElementById('cart-drawer');
+      var backdrop = document.getElementById('cart-backdrop');
+      if (drawer) drawer.classList.remove('active');
+      if (backdrop) {
+        backdrop.classList.remove('active');
+        backdrop.style.opacity = '0';
+        backdrop.style.visibility = 'hidden';
+        backdrop.style.pointerEvents = 'none';
+      }
+    }
+    function closeProductModal() {
+      var backdrop = document.getElementById('product-modal-backdrop');
+      if (backdrop) {
+        backdrop.classList.remove('active');
+        backdrop.style.opacity = '0';
+        backdrop.style.visibility = 'hidden';
+        backdrop.style.pointerEvents = 'none';
+      }
+    }
+    function closeCheckoutModal() {
+      var backdrop = document.getElementById('checkout-modal-backdrop');
+      if (backdrop) {
+        backdrop.classList.remove('active');
+        backdrop.style.opacity = '0';
+        backdrop.style.visibility = 'hidden';
+        backdrop.style.pointerEvents = 'none';
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <!-- Logo -->
+      <a href="#" class="logo" id="logo-btn">
+        <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+        <span>Alpha<span class="gradient-text">Store</span></span>
+      </a>
+
+      <!-- Server Status Badge -->
+      <div class="server-status-pill" id="server-status-pill" title="Express.js & SQLite Backend Live Status">
+        <span id="server-status-text">Backend Live</span>
+      </div>
+
+      <!-- Search Input -->
+      <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="search-input" placeholder="Search headphones, smartwatches, keyboards..." autocomplete="off">
+      </div>
+
+      <!-- Actions (Theme, User, Cart) -->
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="btn-icon" id="theme-toggle-btn" title="Toggle Light/Dark Mode" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Account / Login Button -->
+        <div class="user-menu">
+          <button class="btn btn-secondary" id="user-btn" onclick="openAuthModal();">
+            <i class="fa-regular fa-user"></i>
+            <span id="user-btn-label">Sign In</span>
+          </button>
+        </div>
+
+        <!-- Shopping Cart Button -->
+        <button class="btn btn-primary cart-btn" id="cart-drawer-btn" onclick="openCartDrawer();">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Cart</span>
+          <div class="cart-badge" id="cart-count">0</div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO BANNER ==================== -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-banner">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <i class="fa-solid fa-sparkles"></i> Next-Gen Tech 2026
+          </div>
+          <h1 class="hero-title">Experience <span class="gradient-text">Pure Innovation</span> & Design</h1>
+          <p class="hero-desc">Elevate your everyday setup with high-fidelity audio, aerospace-grade wearables, and precision gaming gear.</p>
+          <div class="hero-actions">
+            <a href="#catalog-section" class="btn btn-primary">
+              <i class="fa-solid fa-arrow-down-long"></i> Explore Store
+            </a>
+            <button class="btn btn-secondary" id="featured-btn">
+              <i class="fa-solid fa-fire"></i> Featured Items
+            </button>
+          </div>
+        </div>
+        <div class="hero-preview">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Hero Product Headphones">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CATALOG & FILTERS ==================== -->
+  <main class="container" id="catalog-section">
+    <div class="catalog-toolbar">
+      <div class="toolbar-header">
+        <!-- Category Filter Pills -->
+        <div class="category-pills" id="category-pills">
+          <button class="pill active" data-category="All"><i class="fa-solid fa-border-all"></i> All Products</button>
+          <button class="pill" data-category="Audio"><i class="fa-solid fa-headphones"></i> Audio</button>
+          <button class="pill" data-category="Wearables"><i class="fa-solid fa-stopwatch"></i> Wearables</button>
+          <button class="pill" data-category="Accessories"><i class="fa-solid fa-keyboard"></i> Accessories</button>
+          <button class="pill" data-category="Smart Home"><i class="fa-solid fa-house-signal"></i> Smart Home</button>
+          <button class="pill" data-category="Electronics"><i class="fa-solid fa-laptop"></i> Electronics</button>
+        </div>
+
+        <!-- Sort Control -->
+        <div class="sort-container">
+          <label for="sort-select" style="font-size:0.85rem; color:var(--text-secondary); font-weight:600;">Sort By:</label>
+          <select id="sort-select" class="sort-select">
+            <option value="featured">Featured First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+            <option value="newest">Newest Additions</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid" id="products-grid">
+      <!-- Dynamic product cards will be rendered here by JS -->
+    </div>
+  </main>
+
+  <!-- ==================== SHOPPING CART DRAWER ==================== -->
+  <div class="drawer-backdrop" id="cart-backdrop" onclick="closeCartDrawer();"></div>
+  <aside class="drawer" id="cart-drawer">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="fa-solid fa-bag-shopping gradient-text"></i> Your Cart</h3>
+      <button class="btn-icon modal-close" id="close-cart-btn" onclick="closeCartDrawer();"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="drawer-body" id="cart-body">
+      <!-- Rendered dynamically -->
+    </div>
+
+    <div class="drawer-footer" id="cart-footer">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">$0.00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Estimated Shipping</span>
+        <span id="cart-shipping" style="color:var(--success); font-weight:600;">FREE</span>
+      </div>
+      <div class="cart-summary-row total">
+        <span>Total Amount</span>
+        <span id="cart-total" class="gradient-text">$0.00</span>
+      </div>
+      <button class="btn btn-primary" id="checkout-btn" onclick="openCheckout();" style="width:100%; margin-top:1.25rem;">
+        <i class="fa-solid fa-lock"></i> Proceed to Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== PRODUCT DETAIL MODAL ==================== -->
+  <div class="modal-backdrop" id="product-modal-backdrop" onclick="if(event.target===this) closeProductModal();">
+    <div class="modal product-detail-modal">
+      <button class="btn-icon modal-close" id="close-product-modal" onclick="closeProductModal();"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-body">
+        <div class="product-detail-grid">
+          <div>
+            <img id="detail-img" src="" alt="Product Detail Image" class="product-detail-img">
+          </div>
+          <div>
+            <span class="product-category" id="detail-category">Category</span>
+            <h2 id="detail-title" style="margin: 0.4rem 0;">Product Title</h2>
+            <div class="product-rating" id="detail-rating"></div>
+            
+            <div style="margin: 1rem 0; display:flex; align-items:baseline; gap:0.75rem;">
+              <span class="current-price" id="detail-price" style="font-size:1.8rem;">$0.00</span>
+              <span class="original-price" id="detail-original-price" style="font-size:1.1rem;"></span>
+            </div>
+
+            <p id="detail-desc" style="color:var(--text-secondary); margin-bottom:1.25rem; font-size:0.95rem;"></p>
+
+            <!-- Quantity & Add to Cart -->
+            <div style="display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem;">
+              <div class="qty-stepper" style="padding:0.2rem;">
+                <button class="qty-btn" id="detail-qty-minus">-</button>
+                <span class="qty-val" id="detail-qty-val" style="font-size:1rem; min-width:30px; text-align:center;">1</span>
+                <button class="qty-btn" id="detail-qty-plus">+</button>
+              </div>
+              <button class="btn btn-primary" id="detail-add-cart-btn" style="flex:1;">
+                <i class="fa-solid fa-cart-plus"></i> Add to Shopping Cart
+              </button>
+            </div>
+
+            <!-- Specs Table -->
+            <h4 style="margin-bottom:0.5rem;"><i class="fa-solid fa-sliders"></i> Specifications</h4>
+            <table class="specs-table" id="detail-specs-table">
+              <!-- Rendered via JS -->
+            </table>
+          </div>
+        </div>
+
+        <!-- Customer Reviews Section -->
+        <div class="reviews-section">
+          <h3>Customer Reviews</h3>
+          <div id="detail-reviews-list" style="margin-top:1rem;"></div>
+          
+          <!-- Add Review Form -->
+          <form id="add-review-form" style="margin-top:1.5rem; background:var(--bg-tertiary); padding:1.25rem; border-radius:var(--radius-md);">
+            <h4 style="margin-bottom:0.75rem;">Write a Review</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Your Rating</label>
+                <select id="review-rating-select" class="form-control" required>
+                  <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                  <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                  <option value="3">⭐⭐⭐ (3/5)</option>
+                  <option value="2">⭐⭐ (2/5)</option>
+                  <option value="1">⭐ (1/5)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" id="review-author-input" class="form-control" placeholder="John Doe">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Review Comment</label>
+              <textarea id="review-comment-input" class="form-control" rows="3" placeholder="Share details about your experience with this product..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CHECKOUT & ORDER MODAL ==================== -->
+  <div class="modal-backdrop" id="checkout-modal-backdrop" onclick="if(event.target===this) closeCheckoutModal();">
+    <div class="modal" style="max-width: 680px;">
+      <button class="btn-icon modal-close" id="close-checkout-modal" onclick="closeCheckoutModal();"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-shield-halved gradient-text"></i> Secure Order Checkout</h2>
+      </div>
+      <div class="modal-body">
+        <form id="checkout-form" onsubmit="event.preventDefault(); if(window.submitCheckoutForm) window.submitCheckoutForm(event); return false;">
+          <!-- Step 1: Shipping Address -->
+          <h4 style="margin-bottom:1rem;"><i class="fa-solid fa-truck"></i> 1. Shipping Address</h4>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="ship-name" class="form-control" placeholder="Alex Morgan" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="ship-email" class="form-control" placeholder="alex@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="ship-phone" class="form-control" placeholder="+1 (555) 019-2834" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Street Address</label>
+            <input type="text" id="ship-address" class="form-control" placeholder="742 Evergreen Terrace" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <input type="text" id="ship-city" class="form-control" placeholder="San Francisco" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Postal / Zip Code</label>
+              <input type="text" id="ship-zip" class="form-control" placeholder="94107" required>
+            </div>
+          </div>
+
+          <!-- Step 2: Payment Method -->
+          <h4 style="margin:1.5rem 0 1rem 0;"><i class="fa-solid fa-credit-card"></i> 2. Payment Method</h4>
+          <div class="form-group">
+            <select id="payment-method-select" class="form-control">
+              <option value="Credit Card">💳 Credit / Debit Card (Visa / Mastercard / Amex)</option>
+              <option value="PayPal">🅿️ PayPal Express Checkout</option>
+              <option value="Apple Pay">🍎 Apple Pay</option>
+              <option value="Cash on Delivery">💵 Cash on Delivery</option>
+            </select>
+          </div>
+
+          <div id="card-details-fields" style="background:var(--bg-tertiary); padding:1rem; border-radius:var(--radius-md); margin-bottom:1.5rem;">
+            <div class="form-group">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-control" placeholder="4532 •••• •••• 8912" value="4532 8910 2341 8912">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Expiry Date</label>
+                <input type="text" class="form-control" placeholder="MM/YY" value="08/29">
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-control" placeholder="123" value="888">
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary Breakdown -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:1.25rem; border-radius:var(--radius-md); margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem;">
+              <span>Total Payable Amount:</span>
+              <span id="checkout-total-payable" class="gradient-text">$0.00</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; font-size:1.05rem;" id="place-order-btn">
+            <i class="fa-solid fa-check-circle"></i> Place Order & Pay Now
+          </button>
+        </form>
+
+        <!-- Order Confirmation Success View -->
+        <div id="order-success-view" style="display:none; text-align:center; padding:2rem 1rem;">
+          <div style="width:70px; height:70px; background:var(--success); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; margin:0 auto 1.25rem auto;">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h2>Thank You For Your Order!</h2>
+          <p style="color:var(--text-secondary); margin:0.5rem 0 1.5rem 0;">Order Reference ID: <strong id="success-order-id" class="gradient-text" style="font-size:1.2rem;">ORD-98214</strong></p>
+          <div style="background:var(--bg-tertiary); padding:1.25rem; border-radius:var(--radius-md); text-align:left; margin-bottom:1.5rem;">
+            <p>🚚 <strong>Estimated Delivery:</strong> 2 - 4 Business Days</p>
+            <p>📧 A confirmation email has been dispatched to your address.</p>
+          </div>
+          <button class="btn btn-primary" id="finish-order-btn"><i class="fa-solid fa-bag-shopping"></i> Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== AUTH & USER MODAL ==================== -->
+  <div class="modal-backdrop" id="auth-modal-backdrop" onclick="if(event.target===this) closeAuthModal();">
+    <div class="modal" style="max-width: 480px;">
+      <button class="btn-icon modal-close" id="close-auth-modal" onclick="closeAuthModal();"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- Account Info (If Logged In) -->
+      <div id="user-profile-view" style="display:none; padding:2rem;">
+        <div style="text-align:center; margin-bottom:1.5rem;">
+          <div style="width:70px; height:70px; background:var(--accent-gradient); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 0.75rem auto;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h3 id="profile-name">Alex Morgan</h3>
+          <p id="profile-email" style="color:var(--text-secondary); font-size:0.9rem;"></p>
+        </div>
+
+        <h4 style="margin-bottom:1rem;"><i class="fa-solid fa-clock-rotate-left"></i> Your Order History</h4>
+        <div id="orders-history-list" style="max-height:220px; overflow-y:auto; margin-bottom:1.5rem;">
+          <!-- Loaded via JS -->
+        </div>
+
+        <button class="btn btn-secondary" id="logout-btn" onclick="handleLogout();" style="width:100%; color:var(--danger); border-color:var(--danger);">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+
+      <!-- Auth Forms (If Logged Out) -->
+      <div id="auth-form-view">
+        <div class="modal-header">
+          <div style="display:flex; gap:1.5rem; border-bottom:1px solid var(--border-color); padding-bottom:0.5rem;">
+            <button class="btn auth-tab active" id="tab-login"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+            <button class="btn auth-tab" id="tab-register"><i class="fa-solid fa-user-plus"></i> Create Account</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <!-- Login Form -->
+          <form id="login-form" onsubmit="submitLoginForm(event); return false;">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="alex@example.com" value="alex@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="••••••••" value="Password123!" required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="submitLoginForm(event); return false;" style="width:100%; margin-bottom:0.75rem;">
+              <i class="fa-solid fa-right-to-bracket"></i> Sign In
+            </button>
+            <button type="button" class="btn btn-secondary" id="demo-login-btn" onclick="handleDemoLogin(event); return false;" style="width:100%;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> 1-Click Demo Login
+            </button>
+          </form>
+
+          <!-- Register Form -->
+          <form id="register-form" onsubmit="submitRegisterForm(event); return false;" style="display:none;">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="reg-name" class="form-control" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="reg-email" class="form-control" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password (Min 6 characters)</label>
+              <input type="password" id="reg-password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="submitRegisterForm(event); return false;" style="width:100%;">
+              <i class="fa-solid fa-user-plus"></i> Create Account
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== TOAST CONTAINER ==================== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer style="background:var(--bg-secondary); border-top:1px solid var(--border-color); padding:3rem 0 1.5rem 0; margin-top:4rem;">
+    <div class="container" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:2rem; margin-bottom:2rem;">
+      <div>
+        <a href="#" class="logo" style="margin-bottom:1rem; display:inline-flex;">
+          <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+          <span>Alpha<span class="gradient-text">Store</span></span>
+        </a>
+        <p style="color:var(--text-secondary); font-size:0.9rem;">Empowering your digital ecosystem with premium craftsmanship and cutting-edge performance.</p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem;">Quick Links</h4>
+        <ul style="list-style:none; line-height:2; font-size:0.9rem; color:var(--text-secondary);">
+          <li><a href="#catalog-section">All Products</a></li>
+          <li><a href="#" id="footer-cart-link">Shopping Cart</a></li>
+          <li><a href="#" id="footer-orders-link">Order Tracking</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:1rem;">Customer Care</h4>
+        <ul style="list-style:none; line-height:2; font-size:0.9rem; color:var(--text-secondary);">
+          <li><i class="fa-solid fa-shield-heart" style="color:var(--accent-primary);"></i> 2-Year Full Warranty</li>
+          <li><i class="fa-solid fa-truck-fast" style="color:var(--accent-primary);"></i> Express Worldwide Delivery</li>
+          <li><i class="fa-solid fa-rotate-left" style="color:var(--accent-primary);"></i> 30-Day Money-Back Guarantee</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container" style="text-align:center; padding-top:1.5rem; border-top:1px solid var(--border-color); color:var(--text-muted); font-size:0.85rem;">
+      <p>© 2026 AlphaStore Tech. CodeAlpha Task 1 E-commerce Store Application. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- App Main JavaScript Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
