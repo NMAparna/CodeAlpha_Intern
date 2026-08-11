@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus — Modern Social Platform</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header Navbar -->
+  <header class="navbar">
+    <div class="navbar-container">
+      <div class="brand" id="brand-logo">
+        <div class="brand-icon">
+          <i class="fa-solid fa-atom"></i>
+        </div>
+        <span class="brand-name">Nexus<span class="brand-dot">.</span></span>
+      </div>
+
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="global-search" placeholder="Search posts, topics, or creators...">
+      </div>
+
+      <div class="user-switcher-container">
+        <div class="switcher-label">Active User:</div>
+        <div class="switcher-dropdown">
+          <select id="user-select-dropdown">
+            <!-- Dynamically populated -->
+          </select>
+          <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+        </div>
+        <button class="btn btn-primary" id="btn-create-post-header">
+          <i class="fa-solid fa-plus"></i> <span>New Post</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Layout -->
+  <div class="app-layout">
+    <!-- Left Sidebar -->
+    <aside class="sidebar left-sidebar">
+      <div class="glass-card active-user-card" id="active-user-widget">
+        <!-- Dynamic User Widget -->
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-link active" data-view="feed" data-feed-type="all">
+          <i class="fa-solid fa-house"></i>
+          <span>Home Feed</span>
+        </a>
+        <a href="#" class="nav-link" data-view="feed" data-feed-type="following">
+          <i class="fa-solid fa-user-group"></i>
+          <span>Following</span>
+        </a>
+        <a href="#" class="nav-link" data-view="feed" data-feed-type="trending">
+          <i class="fa-solid fa-fire"></i>
+          <span>Trending</span>
+        </a>
+        <a href="#" class="nav-link" id="nav-my-profile" data-view="profile">
+          <i class="fa-solid fa-circle-user"></i>
+          <span>My Profile</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Main Feed View -->
+      <section id="view-feed" class="view-section active">
+        <!-- Create Post Card -->
+        <div class="glass-card compose-card">
+          <div class="compose-header">
+            <img src="" alt="Avatar" class="avatar avatar-md" id="compose-user-avatar">
+            <div class="compose-input-wrapper">
+              <textarea id="post-content-input" placeholder="What's happening in your universe?" rows="3"></textarea>
+            </div>
+          </div>
+
+          <div class="compose-image-preview hidden" id="compose-image-preview-container">
+            <img src="" alt="Post image preview" id="compose-image-preview">
+            <button class="btn-icon remove-img-btn" id="btn-remove-compose-image">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="compose-actions">
+            <div class="compose-tools">
+              <button class="tool-btn" id="btn-toggle-image-input" title="Add Image URL">
+                <i class="fa-regular fa-image"></i>
+                <span>Image</span>
+              </button>
+            </div>
+
+            <!-- Image URL Input Bar (Toggled) -->
+            <div class="image-url-input-container hidden" id="image-url-input-wrapper">
+              <input type="url" id="post-image-url-input" placeholder="Paste image URL or pick sample below...">
+              <button class="btn btn-sm btn-secondary" id="btn-apply-image-url">Add</button>
+            </div>
+
+            <div class="preset-image-chips hidden" id="preset-image-chips-container">
+              <span class="chip-label">Quick sample:</span>
+              <button class="preset-chip" data-url="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80">💻 Tech</button>
+              <button class="preset-chip" data-url="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80">🎨 Design</button>
+              <button class="preset-chip" data-url="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80">🏔️ Nature</button>
+            </div>
+
+            <button class="btn btn-primary" id="btn-submit-post">
+              <span>Post</span> <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feed Filter Tabs -->
+        <div class="feed-tabs">
+          <button class="tab-btn active" data-feed="all">
+            <i class="fa-solid fa-globe"></i> All Posts
+          </button>
+          <button class="tab-btn" data-feed="following">
+            <i class="fa-solid fa-user-group"></i> Following
+          </button>
+          <button class="tab-btn" data-feed="trending">
+            <i class="fa-solid fa-bolt"></i> Trending
+          </button>
+        </div>
+
+        <!-- Posts List Container -->
+        <div id="posts-container" class="posts-stream">
+          <!-- Posts rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- Profile View Section -->
+      <section id="view-profile" class="view-section hidden">
+        <div class="profile-header-card glass-card">
+          <div class="profile-banner-container">
+            <img src="" alt="Banner" id="profile-banner-img" class="profile-banner">
+            <button class="btn btn-secondary edit-profile-btn" id="btn-open-edit-profile">
+              <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+            </button>
+          </div>
+
+          <div class="profile-meta-row">
+            <div class="profile-avatar-container">
+              <img src="" alt="Avatar" id="profile-avatar-img" class="avatar avatar-xl profile-avatar-overlap">
+            </div>
+
+            <div class="profile-action-container" id="profile-follow-action-box">
+              <!-- Dynamic Follow/Unfollow button rendered here -->
+            </div>
+          </div>
+
+          <div class="profile-info">
+            <h2 id="profile-display-name" class="profile-name"></h2>
+            <div id="profile-username" class="profile-handle"></div>
+            <p id="profile-bio" class="profile-bio-text"></p>
+
+            <div class="profile-stats">
+              <div class="stat-item">
+                <span class="stat-value" id="profile-posts-count">0</span>
+                <span class="stat-label">Posts</span>
+              </div>
+              <div class="stat-item clickable" id="btn-view-followers">
+                <span class="stat-value" id="profile-followers-count">0</span>
+                <span class="stat-label">Followers</span>
+              </div>
+              <div class="stat-item clickable" id="btn-view-following">
+                <span class="stat-value" id="profile-following-count">0</span>
+                <span class="stat-label">Following</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-tabs feed-tabs">
+          <button class="tab-btn active" id="tab-profile-posts"><i class="fa-solid fa-border-all"></i> User Posts</button>
+          <button class="tab-btn" id="tab-profile-likes"><i class="fa-solid fa-heart"></i> Liked Posts</button>
+        </div>
+
+        <div id="profile-posts-container" class="posts-stream">
+          <!-- User posts rendered dynamically -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar right-sidebar">
+      <div class="glass-card widget-card">
+        <h3 class="widget-title"><i class="fa-solid fa-user-plus"></i> Suggested Creators</h3>
+        <div class="suggestions-list" id="suggestions-container">
+          <!-- User suggestions rendered dynamically -->
+        </div>
+      </div>
+
+      <div class="glass-card widget-card">
+        <h3 class="widget-title"><i class="fa-solid fa-arrow-trend-up"></i> Trending Topics</h3>
+        <div class="trending-tags">
+          <div class="tag-pill">#GlassmorphicUI <span class="tag-count">1.4k posts</span></div>
+          <div class="tag-pill">#NodeJS <span class="tag-count">980 posts</span></div>
+          <div class="tag-pill">#WebDev <span class="tag-count">850 posts</span></div>
+          <div class="tag-pill">#ExpressJS <span class="tag-count">620 posts</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal-overlay hidden" id="edit-profile-modal">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h3>Edit Profile</h3>
+        <button class="btn-icon" id="btn-close-edit-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="edit-profile-form">
+        <div class="form-group">
+          <label for="edit-display-name">Display Name</label>
+          <input type="text" id="edit-display-name" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-bio">Bio</label>
+          <textarea id="edit-bio" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="edit-avatar-url">Avatar Image URL</label>
+          <input type="url" id="edit-avatar-url">
+        </div>
+        <div class="form-group">
+          <label for="edit-banner-url">Banner Image URL</label>
+          <input type="url" id="edit-banner-url">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-edit-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Followers / Following Modal -->
+  <div class="modal-overlay hidden" id="connections-modal">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h3 id="connections-modal-title">Followers</h3>
+        <button class="btn-icon" id="btn-close-connections-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="connections-list" id="connections-list-container">
+        <!-- Connections rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
